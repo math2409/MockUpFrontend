@@ -4,24 +4,28 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
-  <title>so empty</title>
+  <title>Post messages</title>
   <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
   <div class="container">
-    <h1>Subject</h1>
-    <ul class="list">
-      <li>Toto</li>
-      <li>Tata</li>
-      <li>Titi</li>
-      <li>Lolo</li>
-      <li>Lili</li>
-    </ul>
+    <div class="header">
+      <h1>Subject</h1>
+      <button id="theme-toggle" class="secondary-btn">🌙 Dark Mode</button>
+    </div>
+    
+    <div id="messages-list" class="list">
+      <!-- Messages will be injected here -->
+    </div>
 
     <div class="input-group">
-      <textarea placeholder="Write your message..."></textarea>
-      <button>Post</button>
+      <input type="text" id="username" placeholder="Your username..." class="input-field">
+      <textarea id="message-text" placeholder="Write your message..." class="input-field"></textarea>
+      <div class="button-group">
+        <button id="post-btn">Post</button>
+        <button id="refresh-btn" class="secondary-btn">Update List</button>
+      </div>
     </div>
   </div>
 </body>
