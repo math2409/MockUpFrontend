@@ -1,34 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <title>Post messages</title>
   <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
-
 <body>
   <div class="container">
     <div class="header">
       <h1>Subject</h1>
-      <button id="theme-toggle" class="secondary-btn">🌙 Dark Mode</button>
+      <button id="theme-toggle" class="secondary-btn theme-btn" title="Toggle theme">🌙 Dark</button>
     </div>
-    
-    <div id="messages-list" class="list">
-      <!-- Messages will be injected here -->
-    </div>
-
+    <ul class="list" id="message-list">
+      <li>Toto</li>
+      <li>Tata</li>
+      <li>Titi</li>
+      <li>Lolo</li>
+      <li>Lili</li>
+    </ul>
     <div class="input-group">
-      <input type="text" id="username" placeholder="Your username..." class="input-field">
-      <textarea id="message-text" placeholder="Write your message..." class="input-field"></textarea>
+      <input type="text" class="input-field" id="pseudo-input" placeholder="Your username..." maxlength="30" />
+      <textarea class="input-field" id="message-input" placeholder="Write your message..."></textarea>
       <div class="button-group">
         <button id="post-btn">Post</button>
-        <button id="refresh-btn" class="secondary-btn">Update List</button>
+        <button id="update-btn" class="secondary-btn">🔄 Update</button>
       </div>
     </div>
   </div>
+  <script src="script.js"></script>
 </body>
-<script src="script.js"></script>
-
 </html>

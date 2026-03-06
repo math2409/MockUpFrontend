@@ -58,6 +58,8 @@ h1 {
   overflow-y: auto;
   margin-bottom: 1.5rem;
   padding-right: 5px;
+  list-style: none;
+  padding-left: 0;
 }
 
 .message-item {
@@ -101,6 +103,7 @@ h1 {
   box-sizing: border-box;
   background-color: var(--white);
   color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
 }
 
 textarea.input-field {
@@ -129,6 +132,12 @@ button {
   background-color: var(--secondary-color);
   color: var(--text-color);
   border: 1px solid #ddd;
+}
+
+.theme-btn {
+  flex: none;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.85rem;
 }
 
 button:hover {
