@@ -69,12 +69,8 @@ postBtn.addEventListener('click', () => {
 
   if (!text) return;
 
-  const payload = {
-    user: pseudo,
-    msg: text
-  };
-
-  const encoded = encodeURIComponent(JSON.stringify(payload));
+  const message = `${pseudo}|${text}`
+  const encoded = encodeURIComponent(message);
 
   fetch(`https://messageboardbackend.onrender.com/msg/post/${encoded}`)
     .then(response => response.json())
@@ -86,7 +82,7 @@ postBtn.addEventListener('click', () => {
 });
 
 const updateBtn = document.getElementById('update-btn');
-updateBtn.addEventListener('click', () => update(msgs));
+updateBtn.addEventListener('click', () => loadMessages());
 
 // Dark mode
 const themeToggle = document.getElementById('theme-toggle');
