@@ -10,11 +10,10 @@ function applique(f, tab) {
   return tab.map(f);
 }
 
-// Structure avec métadonnées : pseudo + date
 var msgs = [];
 
 function formatDate(date) {
-  return date.toLocaleDateString('fr-FR', {
+  return new Date(date).toLocaleDateString('fr-FR', {
     day: '2-digit', month: '2-digit', year: 'numeric',
     hour: '2-digit', minute: '2-digit'
   });
@@ -23,6 +22,7 @@ function formatDate(date) {
 function update(tab) {
   const messageList = document.querySelector('.list');
   messageList.innerHTML = '';
+
   applique((t) => {
     const li = document.createElement('li');
     li.className = 'message-item';
@@ -54,37 +54,41 @@ function loadMessages() {
   fetch('https://messageboardbackend.onrender.com/msg/getAll')
     .then(response => response.json())
     .then(data => {
-      update(data);
-    })
+      msgs = data;
+      update(msgs);
+    });
 }
 
-// Bouton Post : ajoute un message avec pseudo + date courante
 const postBtn = document.getElementById('post-btn');
 postBtn.addEventListener('click', () => {
   const pseudoInput = document.getElementById('pseudo-input');
   const messageInput = document.getElementById('message-input');
 
+  const pseudo = pseudoInput.value.trim() || 'Anonyme';
   const text = messageInput.value.trim();
 
   if (!text) return;
 
-  const encodedMsg = encodeURIComponent(text);
+  const payload = {
+    user: pseudo,
+    msg: text
+  };
 
-  fetch(`https://messageboardbackend.onrender.com/msg/post/${encodedMsg}`)
+  const encoded = encodeURIComponent(JSON.stringify(payload));
+
+  fetch(`https://messageboardbackend.onrender.com/msg/post/${encoded}`)
     .then(response => response.json())
-    .then(data => {
-    console.log("Message envoyé, id :", data.id);
+    .then(() => {
       loadMessages();
-    })
+    });
 
   messageInput.value = '';
 });
 
-// Bouton Update : réaffiche la liste depuis la variable msgs (utile après modification console)
 const updateBtn = document.getElementById('update-btn');
 updateBtn.addEventListener('click', () => update(msgs));
 
-// Bouton thème clair/sombre
+// Dark mode
 const themeToggle = document.getElementById('theme-toggle');
 themeToggle.addEventListener('click', () => {
   const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
@@ -97,5 +101,5 @@ themeToggle.addEventListener('click', () => {
   }
 });
 
-// Affichage initial
-loadMessages()
+// Init
+loadMessages();
