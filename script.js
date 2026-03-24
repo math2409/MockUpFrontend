@@ -11,11 +11,7 @@ function applique(f, tab) {
 }
 
 // Structure avec métadonnées : pseudo + date
-var msgs = [
-  { msg: "Hello World", user: "Alice", date: new Date("2025-03-01T10:00:00") },
-  { msg: "Blah Blah",   user: "Bob",   date: new Date("2025-03-02T14:30:00") },
-  { msg: "I love cats", user: "Alice", date: new Date("2025-03-03T09:15:00") }
-];
+var msgs = [];
 
 function formatDate(date) {
   return date.toLocaleDateString('fr-FR', {
@@ -54,6 +50,14 @@ function update(tab) {
   }, tab);
 }
 
+function loadMessages() {
+  fetch('https://b800f681-8147-4c5b-8ed9-65a5aecb2b88-00-1x53opyg88r7x.kirk.replit.dev/msg/getAll')
+    .then(response => response.json())
+    .then(data => {
+      update(data);
+    })
+}
+
 // Bouton Post : ajoute un message avec pseudo + date courante
 const postBtn = document.getElementById('post-btn');
 postBtn.addEventListener('click', () => {
@@ -65,14 +69,16 @@ postBtn.addEventListener('click', () => {
 
   if (!text) return;
 
-  msgs.push({
-    msg: text,
-    user: pseudo,
-    date: new Date()
-  });
+  const encodedMsg = encodeURIComponent(text);
+
+  fetch(`https://b800f681-8147-4c5b-8ed9-65a5aecb2b88-00-1x53opyg88r7x.kirk.replit.dev/msg/post/${encodedMsg}`)
+    .then(response => response.json())
+    .then(data => {
+    console.log("Message envoyé, id :", data.id);
+      loadMessages();
+    })
 
   messageInput.value = '';
-  update(msgs);
 });
 
 // Bouton Update : réaffiche la liste depuis la variable msgs (utile après modification console)
@@ -93,4 +99,4 @@ themeToggle.addEventListener('click', () => {
 });
 
 // Affichage initial
-update(msgs);
+loadMessages()
