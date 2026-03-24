@@ -51,7 +51,7 @@ function update(tab) {
 }
 
 function loadMessages() {
-  fetch('https://b800f681-8147-4c5b-8ed9-65a5aecb2b88-00-1x53opyg88r7x.kirk.replit.dev/msg/getAll')
+  fetch('https://messageboardbackend.onrender.com/msg/getAll')
     .then(response => response.json())
     .then(data => {
       update(data);
@@ -64,14 +64,13 @@ postBtn.addEventListener('click', () => {
   const pseudoInput = document.getElementById('pseudo-input');
   const messageInput = document.getElementById('message-input');
 
-  const pseudo = pseudoInput.value.trim() || 'Anonyme';
   const text = messageInput.value.trim();
 
   if (!text) return;
 
   const encodedMsg = encodeURIComponent(text);
 
-  fetch(`https://b800f681-8147-4c5b-8ed9-65a5aecb2b88-00-1x53opyg88r7x.kirk.replit.dev/msg/post/${encodedMsg}`)
+  fetch(`https://messageboardbackend.onrender.com/msg/post/${encodedMsg}`)
     .then(response => response.json())
     .then(data => {
     console.log("Message envoyé, id :", data.id);
